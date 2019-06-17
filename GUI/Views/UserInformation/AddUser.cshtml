@@ -1,0 +1,72 @@
+﻿@model DAL.User
+
+@{
+    ViewBag.Title = "AddUser";
+}
+
+<h2>AddUser</h2>
+
+
+<div id="all-field">
+    <div class="field">
+        @Html.DisplayNameFor(model => model.TZ)
+
+        <input class="form-control" id="TZ" />
+    </div>
+    <div class="field">
+        @Html.DisplayNameFor(model => model.Name)
+
+        <input class="form-control" id="Name" type="text" />
+    </div>
+    <div class="field">
+        @Html.DisplayNameFor(model => model.Email)
+
+        <input class="form-control" id="Email" type="email" />
+    </div>
+    <div class="field">
+        @Html.DisplayNameFor(model => model.DateOfBirth)
+
+        <input class="form-control" id="DateOfBirth" type="date" />
+    </div>
+   
+    <div class="field">
+        @Html.DisplayNameFor(model => model.Phone)
+        <input class="form-control" id="Phon" type="tel" />
+    </div>
+</div>
+
+
+
+<div class="form-actions no-color">
+    <input type="button" value="Add User" class="btn btn-default" onclick="Add()" /> |
+    @Html.ActionLink("Back to List", "List")
+</div>
+
+
+
+<p id="masseg"></p>
+<script>
+    function Add() {
+        var data = {
+            id: 0,
+            name: $("#Name").val(),
+            tz: $("#TZ").val(),
+            email: $("#Email").val(),
+            DateOfBirth: $("#DateOfBirth").val(),
+            kind: $("#kind").val(),
+            Phon: $("#Phon").val()
+        }
+
+        //if (data.DateOfBirth != null && data.email != null && data.kind != null && data.name != null && data.Phon != null && data.tz.length == 10)
+            $.ajax({
+                type: "Post",
+                url: "/UserInformation/AddNewUserUser",
+                data: data,
+                success: (msg) => {
+                    $("#masseg").text("User created successfully");
+                }, fail: () => { $("#masseg").text("User not created") }
+            })
+        //else alert("Please make sure all details are complete");
+    }
+</script>
+

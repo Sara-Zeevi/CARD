@@ -1,0 +1,64 @@
+﻿@model DAL.User
+
+@{
+    ViewBag.Title = "EditUser";
+}
+
+<h2>Edit User</h2>
+
+<div id="all-field">
+    <div class="field">
+        @Html.DisplayNameFor(model => model.TZ)
+        <input class="form-control" id="TZ" />
+    </div>
+    <div class="field">
+        @Html.DisplayNameFor(model => model.Name)
+        <input class="form-control" id="Name" type="text" />
+    </div>
+    <div class="field">
+        @Html.DisplayNameFor(model => model.Email)
+       @Html.EditorFor(model=>model.Email,)
+    </div> 
+    <div class="field">
+        @Html.DisplayNameFor(model => model.DateOfBirth)
+        <input class="form-control" id="DateOfBirth" type="date" />
+    </div>
+   
+    <div class="field">
+        @Html.DisplayNameFor(model => model.Phone)
+        <input class="form-control" id="Phon" type="tel" />
+    </div>
+</div>
+
+
+
+
+<div class="form-actions no-color">
+    <input type="button" value="Edit" class="btn btn-default" onclick="Edit()" /> |
+    @Html.ActionLink("Back to List", "List")
+</div>
+
+
+<p id="masseg"></p>
+<script>
+    function Edit() {
+        var data = {
+            id: 0,
+            name: $("#Name").val(),
+            tz: $("#TZ").val(),
+            email: $("#Email").val(),
+            DateOfBirth: $("#DateOfBirth").val(),         
+            Phon: $("#Phon").val()
+        }
+        //if (data.DateOfBirth != null && data.email != null && data.kind != null && data.name != null && data.Phon != null && data.tz.length == 10)
+            $.ajax({
+                type: "Post",
+                url: "/UserInformation/Edit",
+                data: data,
+                success: (msg) => {
+                    $("#masseg").text("the user update");
+                }, fail: () => { $("#masseg").text("the user not update") }
+            })
+        //else alert("Please make sure all details are complete");
+    }
+</script>
